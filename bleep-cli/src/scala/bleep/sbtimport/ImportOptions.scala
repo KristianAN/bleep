@@ -6,7 +6,13 @@ import cats.data.{Validated, ValidatedNel}
 import cats.syntax.apply.*
 import com.monovore.decline.{Argument, Opts}
 
-case class ImportOptions(ignoreWhenInferringTemplates: Set[model.ProjectName], skipSbt: Boolean, skipGeneratedResourcesScript: Boolean, jvm: model.Jvm)
+case class ImportOptions(
+    ignoreWhenInferringTemplates: Set[model.ProjectName],
+    skipSbt: Boolean,
+    skipGeneratedResourcesScript: Boolean,
+    jvm: model.Jvm,
+    providedSbt: Option[String]
+)
 
 object ImportOptions {
   val ignoreWhenInferringTemplates: Opts[Set[model.ProjectName]] = Opts
@@ -36,6 +42,8 @@ object ImportOptions {
       .withDefault(Some(model.Jvm.system))
       .map(_.get)
 
+  val providedSbt: Opts[String] = Opts.option[String]("sbt-path", "provide a path to sbt if you are on a system that can not use sbt from coursier").orNone
+
   val opts: Opts[ImportOptions] =
-    (ignoreWhenInferringTemplates, skipSbt, skipGeneratedResourcesScript, jvm).mapN(ImportOptions.apply)
+    (ignoreWhenInferringTemplates, skipSbt, skipGeneratedResourcesScript, jvm, providedSbt).mapN(ImportOptions.apply)
 }
