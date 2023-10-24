@@ -42,7 +42,7 @@ object ImportOptions {
       .withDefault(Some(model.Jvm.system))
       .map(_.get)
 
-  val providedSbt: Opts[String] = Opts.option[String]("sbt-path", "provide a path to sbt if you are on a system that can not use sbt from coursier").orNone
+  val providedSbt: Opts[Option[String]] = Opts.option[String]("sbt-path", "provide a path to sbt if you are on a system that can not use sbt from coursier").orNone
 
   val opts: Opts[ImportOptions] =
     (ignoreWhenInferringTemplates, skipSbt, skipGeneratedResourcesScript, jvm, providedSbt).mapN(ImportOptions.apply)
