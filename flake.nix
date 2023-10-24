@@ -3,7 +3,7 @@
 
   inputs = {
      nixpkgs.url = "github:NixOS/nixpkgs";
-     bleepSrc.url = "github:KristianAN/bleep-flake"; # The bleep flake
+     bleepSrc.url = "path:/home/kristian/src/bleep-flake"; # The bleep flake
      flake-utils.url = "github:numtide/flake-utils";
   };
 

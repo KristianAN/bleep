@@ -97,7 +97,8 @@ class IntegrationSnapshotTests extends SnapshotTest {
 
     val importedBuildLoader = BuildLoader.inDirectory(importedPath)
     val importedDestinationPaths = BuildPaths(cwd = FileUtils.TempDir, importedBuildLoader, model.BuildVariant.Normal)
-    val importerOptions = sbtimport.ImportOptions(ignoreWhenInferringTemplates = Set.empty, skipSbt = false, skipGeneratedResourcesScript = false, jvm = jvm)
+    val importerOptions =
+      sbtimport.ImportOptions(ignoreWhenInferringTemplates = Set.empty, skipSbt = false, skipGeneratedResourcesScript = false, jvm = jvm, providedSbt = None)
 
     // generate a build file and store it
     val buildFiles: Map[Path, String] =

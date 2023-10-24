@@ -11,7 +11,7 @@ case class ImportOptions(
     skipSbt: Boolean,
     skipGeneratedResourcesScript: Boolean,
     jvm: model.Jvm,
-    providedSbt: Option[String] = None
+    providedSbt: Option[String]
 )
 
 object ImportOptions {

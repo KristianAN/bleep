@@ -16,7 +16,7 @@ object runSbt {
     *
     * I'm sure it's possible to do the same thing from within sbt and only launch it first, but you know. it's not at all easy.
     */
-  def apply(logger: Logger, sbtBuildDir: Path, destinationPaths: BuildPaths, jvm: ResolvedJvm, providedSbt: Option[String] = None): Unit = {
+  def apply(logger: Logger, sbtBuildDir: Path, destinationPaths: BuildPaths, jvm: ResolvedJvm, providedSbt: Option[String]): Unit = {
     val sbtPath = providedSbt.map(sbtBinPath => Path.of(sbtBinPath)).getOrElse {
       val fetchSbt = new FetchSbt(new BleepCacheLogger(logger), ExecutionContext.global)
       val version = readSbtVersionFromFile(sbtBuildDir).getOrElse("1.8.0")
