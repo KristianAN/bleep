@@ -266,5 +266,4 @@ object runSbt {
       new ScalaVersionOutput(scalaVersions, crossVersions)
     }
   }
-
 }
