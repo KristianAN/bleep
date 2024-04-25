@@ -7,6 +7,13 @@
     "allDeclaredFields": true
   },
   {
+    "name": "ch.epfl.scala.bsp4j.DependencyModulesParams",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "ch.epfl.scala.bsp4j.BuildClient",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -42,7 +49,6 @@
     "allDeclaredFields": true
   },
   {
-    "name": "ch.epfl.scala.bsp4j.BuildTarget",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
