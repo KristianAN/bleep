@@ -75,7 +75,7 @@ class IntegrationSnapshotTests extends SnapshotTest {
         val cacheLogger = new BleepCacheLogger(logger)
         val fetchJvm = new FetchJvm(Some(userPaths.resolveJvmCacheDir), cacheLogger, ExecutionContext.global)
         val fetchedJvm = fetchJvm(jvm)
-        sbtimport.runSbt(logger, sbtBuildDir, sbtDestinationPaths, fetchedJvm)
+        sbtimport.runSbt(logger, sbtBuildDir, sbtDestinationPaths, fetchedJvm, None)
 
         val inputData = sbtimport.ImportInputData.collectFromFileSystem(sbtDestinationPaths, logger)
         FileUtils.writeGzippedBytes(
