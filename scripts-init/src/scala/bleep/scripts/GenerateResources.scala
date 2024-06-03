@@ -12,7 +12,7 @@ object GenerateResources extends BleepCodegenScript("GenerateResources") {
 
     targets.foreach { target =>
       writeVersion(target, started.logger, dynVer.version)
-      writeJvm(target, started.logger, started.build.jvm.getOrElse(sys.error("Bleep should have a defined JVM in build file")))
+      writeJvm(target, started.logger, started.build.jvm.getOrElse(model.Jvm.system))
     }
   }
 
