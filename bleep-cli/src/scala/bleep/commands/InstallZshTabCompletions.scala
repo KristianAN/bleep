@@ -7,7 +7,7 @@ import bleep.logging.Logger
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 
-case class InstallZshTabCompletions(userPaths: UserPaths, logger: Logger) extends BleepCommand {
+case class InstallZshTabCompletions(userPaths: UserPaths, logger: Logger, stdout: Boolean) extends BleepCommand {
   override def run(): Either[BleepException, Unit] = {
     val programName = BleepExecutable.findCurrentBleep(logger) match {
       case Some(CoursierInstallation(scriptPath, _)) => scriptPath.getFileName.toString
@@ -29,7 +29,12 @@ case class InstallZshTabCompletions(userPaths: UserPaths, logger: Logger) extend
     val completionScriptDest = completionScriptDir / s"_$programName"
 
     logger.info(s"Writing $completionScriptDest")
-    FileSync.softWriteBytes(completionScriptDest, completionScript.getBytes(StandardCharsets.UTF_8))
+
+    if (stdout) {
+      println(completionScript)
+    } else {
+      FileSync.softWriteBytes(completionScriptDest, completionScript.getBytes(StandardCharsets.UTF_8))
+    }
 
     val zshRc = Option(System.getenv("ZDOTDIR")).map(Path.of(_)).getOrElse(FileUtils.Home) / ".zshrc"
 
