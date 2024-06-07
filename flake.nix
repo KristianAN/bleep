@@ -13,7 +13,7 @@
           inherit system;
           overlays = [
             (f: p: {
-              scala-cli = p.scala-cli.override { jre = p.graalvm-ce; };
+              scala-cli = p.scala-cli.override { jre = p.temurin-bin-21; };
             })
           ];
         };
@@ -25,13 +25,14 @@
 
         bleep = bleep-flake.defaultPackage.${system};
 
-        jdk = pkgs.graalvm-ce;
+        jdk = pkgs.temurin-bin-21;
 
         jvmInputs = with pkgs; [
           scalafmt
           coursier
           jdk
           bleep
+          scala-cli
           zlib
         ];
 

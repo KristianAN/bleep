@@ -1,7 +1,5 @@
 $schema: https://raw.githubusercontent.com/oyvindberg/bleep/master/schema.json
-$version: 0.0.3
-jvm:
-  name: graalvm-community:21.0.2
+$version: 0.0.4
 projects:
   bleep-cli:
     dependencies:
@@ -137,7 +135,7 @@ projects:
     - template-common
     - template-scala-3
   scripts-init:
-    dependencies: build.bleep::bleep-plugin-dynver:${BLEEP_VERSION}
+    dependencies: build.bleep::bleep-plugin-dynver:0.0.3
     extends:
     - template-common
     - template-scala-3
