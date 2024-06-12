@@ -233,6 +233,14 @@
             "esmodule"
           ]
         },
+        "jsModuleSplitStyle": {
+          "type": "string",
+          "enum": [
+            "fewestModules",
+            "smallestModules",
+            "smalestModulesFor"
+          ]
+        },
         "jsEmitSourceMaps": {
           "type": "boolean"
         },

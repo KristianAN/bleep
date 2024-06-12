@@ -2,6 +2,9 @@ package bleep.model
 
 import io.circe.*
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import bleep.model.ModuleKindJS.CommonJSModule
+import bleep.model.ModuleKindJS.ESModule
+import bleep.model.ModuleKindJS.NoModule
 
 case class Platform(
     name: Option[PlatformId],
@@ -9,6 +12,7 @@ case class Platform(
     jsVersion: Option[VersionScalaJs],
     jsMode: Option[LinkerMode],
     jsKind: Option[ModuleKindJS],
+    jsModuleSplitStyle: Option[ModuleSplitStyleJS],
     jsEmitSourceMaps: Option[Boolean],
     jsJsdom: Option[Boolean],
     jsNodeVersion: Option[String],
@@ -44,6 +48,7 @@ case class Platform(
       jsVersion = if (jsVersion == other.jsVersion) jsVersion else None,
       jsMode = if (jsMode == other.jsMode) jsMode else None,
       jsKind = if (jsKind == other.jsKind) jsKind else None,
+      jsModuleSplitStyle = if (jsModuleSplitStyle == other.jsModuleSplitStyle) jsModuleSplitStyle else None,
       jsEmitSourceMaps = if (jsEmitSourceMaps == other.jsEmitSourceMaps) jsEmitSourceMaps else None,
       jsJsdom = if (jsJsdom == other.jsJsdom) jsJsdom else None,
       jsNodeVersion = if (jsNodeVersion == other.jsNodeVersion) jsNodeVersion else None,
@@ -62,6 +67,7 @@ case class Platform(
       jsVersion = if (jsVersion == other.jsVersion) None else jsVersion,
       jsMode = if (jsMode == other.jsMode) None else jsMode,
       jsKind = if (jsKind == other.jsKind) None else jsKind,
+      jsModuleSplitStyle = if (jsModuleSplitStyle == other.jsModuleSplitStyle) None else jsModuleSplitStyle,
       jsEmitSourceMaps = if (jsEmitSourceMaps == other.jsEmitSourceMaps) None else jsEmitSourceMaps,
       jsJsdom = if (jsJsdom == other.jsJsdom) None else jsJsdom,
       jsNodeVersion = if (jsNodeVersion == other.jsNodeVersion) None else jsNodeVersion,
@@ -80,6 +86,7 @@ case class Platform(
       jsVersion = jsVersion.orElse(other.jsVersion),
       jsMode = jsMode.orElse(other.jsMode),
       jsKind = jsKind.orElse(other.jsKind),
+      jsModuleSplitStyle = jsModuleSplitStyle.orElse(other.jsModuleSplitStyle),
       jsEmitSourceMaps = jsEmitSourceMaps.orElse(other.jsEmitSourceMaps),
       jsJsdom = jsJsdom.orElse(other.jsJsdom),
       jsNodeVersion = jsNodeVersion.orElse(other.jsNodeVersion),
@@ -106,6 +113,7 @@ object Platform {
         jsVersion = None,
         jsMode = None,
         jsKind = None,
+        jsModuleSplitStyle = None,
         jsEmitSourceMaps = None,
         jsJsdom = None,
         jsNodeVersion = None,
@@ -129,6 +137,7 @@ object Platform {
         jsVersion: VersionScalaJs,
         jsMode: Option[LinkerMode],
         jsKind: Option[ModuleKindJS],
+        jsModuleSplitStyle: Option[ModuleSplitStyleJS],
         jsEmitSourceMaps: Option[Boolean],
         jsJsdom: Option[Boolean],
         jsNodeVersion: Option[String],
@@ -140,6 +149,10 @@ object Platform {
         jsVersion = Some(jsVersion),
         jsMode = jsMode,
         jsKind = jsKind,
+        jsModuleSplitStyle = jsKind.flatMap {
+          case ESModule => jsModuleSplitStyle
+          case _        => None
+        },
         jsEmitSourceMaps = jsEmitSourceMaps,
         jsJsdom = jsJsdom,
         jsNodeVersion = jsNodeVersion,
@@ -165,6 +178,7 @@ object Platform {
         jsVersion = None,
         jsMode = None,
         jsKind = None,
+        jsModuleSplitStyle = None,
         jsEmitSourceMaps = None,
         jsJsdom = None,
         jsNodeVersion = None,

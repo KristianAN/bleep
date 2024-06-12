@@ -498,6 +498,7 @@ object buildFromBloopFiles {
           jsKind = Some(conversions.moduleKindJS.to(config.kind)),
           jsEmitSourceMaps = Some(config.emitSourceMaps),
           jsJsdom = config.jsdom,
+          jsModuleSplitStyle = None, // TODO JSLinker
           jsNodeVersion = config.nodePath
             .map { nodePath =>
               import scala.sys.process.*
