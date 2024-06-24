@@ -4,8 +4,9 @@ package commands
 import bleep.logging.Logger
 
 import java.nio.file.Path
+import bleep.sbtimport.ImportInputData
 
-case class Import(
+case class ImportSbt(
     existingBuild: Option[model.BuildFile],
     sbtBuildDir: Path,
     fetchJvm: FetchJvm,
@@ -20,7 +21,7 @@ case class Import(
       sbtimport.runSbt(logger, sbtBuildDir, destinationPaths, resolvedJvm, options.sbtPath)
     }
 
-    val inputData = sbtimport.ImportInputData.collectFromFileSystem(destinationPaths, logger)
+    val inputData: ImportInputData = sbtimport.ImportInputData.collectFromFileSystem(destinationPaths, logger)
 
     val generatedBuildFiles = sbtimport
       .generateBuild(

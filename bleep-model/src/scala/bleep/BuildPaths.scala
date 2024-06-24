@@ -10,6 +10,7 @@ case class BuildPaths(cwd: Path, bleepYamlFile: Path, variant: model.BuildVarian
   lazy val bleepImportDir: Path = dotBleepDir / "import"
   lazy val bleepImportBloopDir: Path = dotBleepDir / "import" / "bloop"
   lazy val bleepImportSbtExportDir: Path = dotBleepDir / "import" / "sbt-export"
+  lazy val bleepImportScalaCliExportDir: Path = dotBleepDir / "import" / "scala-cli-export"
 
   lazy val buildsDir = dotBleepDir / "builds"
 

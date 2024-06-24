@@ -304,14 +304,25 @@ object Main {
 
   def importCmd(buildLoader: BuildLoader, userPaths: UserPaths, buildPaths: BuildPaths, logger: Logger): Opts[BleepCommand] =
     Opts.subcommand("import", "import existing build from files in .bloop")(
-      sbtimport.ImportOptions.opts.map { opts =>
-        val cacheLogger = new BleepCacheLogger(logger)
-        val fetchJvm = new FetchJvm(Some(userPaths.resolveJvmCacheDir), cacheLogger, ec)
+      Opts.subcommand("sbt", "import from sbt")(
+        sbtimport.ImportOptions.opts.map { opts =>
+          val cacheLogger = new BleepCacheLogger(logger)
+          val fetchJvm = new FetchJvm(Some(userPaths.resolveJvmCacheDir), cacheLogger, ec)
 
-        val existingBuild = buildLoader.existing.flatMap(_.buildFile.forceGet).toOption
+          val existingBuild = buildLoader.existing.flatMap(_.buildFile.forceGet).toOption
 
-        commands.Import(existingBuild, sbtBuildDir = buildPaths.cwd, fetchJvm, buildPaths, logger, opts, model.BleepVersion.current)
-      }
+          commands.ImportSbt(existingBuild, sbtBuildDir = buildPaths.cwd, fetchJvm, buildPaths, logger, opts, model.BleepVersion.current)
+        }
+      ) orElse Opts.subcommand("scala-cli", "import from scala-cli")(
+        sbtimport.ImportOptions.opts.map { opts =>
+          val cacheLogger = new BleepCacheLogger(logger)
+          val fetchJvm = new FetchJvm(Some(userPaths.resolveJvmCacheDir), cacheLogger, ec)
+
+          val existingBuild = buildLoader.existing.flatMap(_.buildFile.forceGet).toOption
+
+          commands.ImportScalaCli(existingBuild, sbtBuildDir = buildPaths.cwd, fetchJvm, buildPaths, logger, opts, model.BleepVersion.current)
+        }
+      )
     )
 
   def installTabCompletions(userPaths: UserPaths, logger: Logger): Opts[BleepCommand] =
