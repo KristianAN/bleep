@@ -238,7 +238,11 @@
           "properties": {
             "splitStyle": {
               "type": "string",
-              "enum": ["FewestModules", "SmallestModules", "SmallModulesFor"]
+              "enum": [
+                "FewestModules",
+                "SmallestModules",
+                "SmallModulesFor"
+              ]
             },
             "packages": {
               "type": "array",
@@ -247,11 +251,21 @@
               }
             }
           },
-          "required": ["splitStyle"],
+          "required": [
+            "splitStyle"
+          ],
           "if": {
-            "properties": { "splitStyle": { "const": "SmallModulesFor" } }
+            "properties": {
+              "splitStyle": {
+                "const": "SmallModulesFor"
+              }
+            }
           },
-          "then": { "required": ["packages"] }
+          "then": {
+            "required": [
+              "packages"
+            ]
+          }
         },
         "jsEmitSourceMaps": {
           "type": "boolean"
@@ -282,15 +296,22 @@
           "type": "string"
         }
       },
-      "dependencies": {
-        "jsSplitStyle": ["jsKind"]
-      },
-      "allOf": [{
-        "if": {
-          "properties": { "jsKind": { "const": "esmodule" } }
-        },
-        "then": { "required": ["jsSplitStyle"] }
-      }]
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "jsKind": {
+                "const": "esmodule"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "jsSplitStyle"
+            ]
+          }
+        }
+      ]
     },
     "CompileSetup": {
       "type": "object",
