@@ -246,12 +246,7 @@
                 "type": "string"
               }
             }
-          },
-          "required": ["splitStyle"],
-          "if": {
-            "properties": { "splitStyle": { "const": "SmallModulesFor" } }
-          },
-          "then": { "required": ["packages"] }
+          }
         },
         "jsEmitSourceMaps": {
           "type": "boolean"
@@ -281,16 +276,7 @@
         "nativeGc": {
           "type": "string"
         }
-      },
-      "dependencies": {
-        "jsSplitStyle": ["jsKind"]
-      },
-      "allOf": [{
-        "if": {
-          "properties": { "jsKind": { "const": "esmodule" } }
-        },
-        "then": { "required": ["jsSplitStyle"] }
-      }]
+      }   
     },
     "CompileSetup": {
       "type": "object",
