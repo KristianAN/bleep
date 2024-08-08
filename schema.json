@@ -247,7 +247,6 @@
               }
             }
           },
-          "required": ["splitStyle"],
           "if": {
             "properties": { "splitStyle": { "const": "SmallModulesFor" } }
           },
