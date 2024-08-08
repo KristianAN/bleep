@@ -281,16 +281,7 @@
         "nativeGc": {
           "type": "string"
         }
-      },
-      "dependencies": {
-        "jsSplitStyle": ["jsKind"]
-      },
-      "allOf": [{
-        "if": {
-          "properties": { "jsKind": { "const": "esmodule" } }
-        },
-        "then": { "required": ["jsSplitStyle"] }
-      }]
+      }
     },
     "CompileSetup": {
       "type": "object",
