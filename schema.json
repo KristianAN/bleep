@@ -22,6 +22,40 @@
         "native"
       ]
     },
+    "JsSplitStyle": {
+      "type": "object",
+      "properties": {
+        "splitStyle": {
+          "type": "string",
+          "enum": [
+            "FewestModules",
+            "SmallestModules",
+            "SmallModulesFor"
+          ]
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "splitStyle"
+      ],
+      "if": {
+        "properties": {
+          "splitStyle": {
+            "const": "SmallModulesFor"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "packages"
+        ]
+      }
+    },
     "Option": {
       "type": "string"
     },
@@ -234,24 +268,7 @@
           ]
         },
         "jsSplitStyle": {
-          "type": "object",
-          "properties": {
-            "splitStyle": {
-              "type": "string",
-              "enum": ["FewestModules", "SmallestModules", "SmallModulesFor"]
-            },
-            "packages": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "required": ["splitStyle"],
-          "if": {
-            "properties": { "splitStyle": { "const": "SmallModulesFor" } }
-          },
-          "then": { "required": ["packages"] }
+          "$ref": "#/$defs/JsSplitStyle"
         },
         "jsEmitSourceMaps": {
           "type": "boolean"
@@ -283,14 +300,26 @@
         }
       },
       "dependencies": {
-        "jsSplitStyle": ["jsKind"]
+        "jsSplitStyle": [
+          "jsKind"
+        ]
       },
-      "allOf": [{
-        "if": {
-          "properties": { "jsKind": { "const": "esmodule" } }
-        },
-        "then": { "required": ["jsSplitStyle"] }
-      }]
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "jsKind": {
+                "const": "esmodule"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "jsSplitStyle"
+            ]
+          }
+        }
+      ]
     },
     "CompileSetup": {
       "type": "object",
